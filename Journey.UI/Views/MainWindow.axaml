@@ -1,0 +1,376 @@
+﻿
+
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Journey.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+        x:Class="Journey.UI.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Background="{StaticResource MainBackgroundBrush}"
+        FontFamily="{StaticResource MainFont}"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Journey.UI">
+
+    <Window.Styles>
+        <Style Selector="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10,0,0,0"/>
+        </Style>
+
+        <Style Selector="CheckBox:checked /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
+        </Style>
+
+        <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+            <Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush}"/>
+        </Style>
+
+        <Style Selector="TabItem">
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="TabItem:pointerover">
+            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+        </Style>
+
+        <Style Selector="TabItem:selected">
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush}"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto, *">
+        <Border Grid.Row="0" 
+                Background="{StaticResource CardBackgroundBrush}"
+                Margin="12" 
+                Padding="20" 
+                CornerRadius="12"
+                BoxShadow="0 4 12 0 #0A000000">
+            <StackPanel Spacing="8">
+                <TextBlock Text="{Binding ProjectName}" 
+                           FontSize="22" 
+                           FontWeight="Bold"
+                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                <Grid ColumnDefinitions="*, Auto">
+                    <ProgressBar Grid.Column="0" 
+                                 Value="{Binding CurrentProgressValue}" 
+                                 Height="8" 
+                                 Foreground="{StaticResource AccentColorBrush}"
+                                 Background="#E5E7EB"
+                                 CornerRadius="4"/>
+                    <TextBlock Grid.Column="1" 
+                               Text="{Binding ProgressDisplay}" 
+                               Margin="12,0,0,0"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                     
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <TabControl Grid.Row="1" Margin="12,0,12,12">
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Padding" Value="12, 8"/>
+                </Style>
+            </TabControl.Styles>
+            <TabItem Header="Карта 🗺️">
+               <Border Background="{StaticResource CardBackgroundBrush}" 
+                        CornerRadius="12" 
+                        BoxShadow="0 4 12 0 #0A000000"
+                        ClipToBounds="True">
+                   <Grid RowDefinitions="Auto, *, 200">     
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="10" Margin="10, 5">
+                            <Button Content="➡️ След. веха (Debug)" 
+                                    Command="{Binding CompleteNextMilestoneCommand}"
+                                    FontSize="12" Padding="8,4"
+                                    Background="#f3f4f6"/>
+                            <Button Content="♻️ Сброс" 
+                                Command="{Binding ResetCommand}"
+                                Background="#FFE0E0" 
+                                Margin="5,0"/>
+                            </StackPanel>
+
+                        <Panel Grid.Row="1" Background="#F8F9FA">
+                            <ItemsControl ItemsSource="{Binding VisualPaths}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:PathSegmentViewModel">
+                                        <Line StartPoint="{Binding StartPoint}" 
+                                              EndPoint="{Binding EndPoint}" 
+                                              Stroke="{Binding Color}" 
+                                              StrokeThickness="4" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                          <ItemsControl ItemsSource="{Binding VisualMilestones}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.Styles>
+                                    <Style Selector="TextBlock.milestone-label">
+                                        <Setter Property="Opacity" Value="0"/>
+                                        <Setter Property="Transitions">
+                                            <Transitions>
+                                                <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                                            </Transitions>
+                                        </Setter>
+                                    </Style>
+
+                                    <Style Selector="Button:pointerover TextBlock.milestone-label, Button[Tag=True] TextBlock.milestone-label">
+                                        <Setter Property="Opacity" Value="1"/>
+                                    </Style>
+
+                                    <Style Selector="ContentPresenter" x:DataType="vm:MilestoneViewModel">
+                                        <Setter Property="Canvas.Left" Value="{Binding X}"/>
+                                        <Setter Property="Canvas.Top" Value="{Binding Y}"/>
+                                    </Style>
+
+                                    <Style Selector="Button.milestone-btn">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Template">
+                                            <ControlTemplate>
+                                                <ContentPresenter Content="{TemplateBinding Content}" />
+                                            </ControlTemplate>
+                                        </Setter>
+                                    </Style>
+
+                                    <Style Selector="Ellipse.milestone-dot">
+                                        <Setter Property="Stroke" Value="White"/>
+                                        <Setter Property="StrokeThickness" Value="2"/>
+                                        <Setter Property="RenderTransformOrigin" Value="50%,50%"/>
+                                        <Setter Property="Transitions">
+                                            <Transitions>
+                                                <DoubleTransition Property="StrokeThickness" Duration="0:0:0.2"/>
+        
+                                                <BrushTransition Property="Stroke" Duration="0:0:0.2"/>
+                                                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                                            </Transitions>
+                                        </Setter>
+                                    </Style>
+
+                                    <Style Selector="Button[Tag=True] Ellipse.milestone-dot">
+                                        <Setter Property="Stroke" Value="#f1c40f"/>
+                                        <Setter Property="StrokeThickness" Value="5"/>
+                                        <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    </Style>
+                                </ItemsControl.Styles>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:MilestoneViewModel">
+                                        <Button Classes="milestone-btn"
+                                                Width="40" Height="60" 
+                                                Margin="-20,-10"
+                                                Tag="{Binding IsSelected}"
+                                                ClipToBounds="False" 
+                                                Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).SelectMilestoneCommand}"
+                                                CommandParameter="{Binding}">
+
+                                            <Canvas ClipToBounds="False">
+                                                <Ellipse Classes="milestone-dot"
+                                                         Width="22" Height="22" 
+                                                         Fill="{Binding Color}" />
+
+                                                <TextBlock Classes="milestone-label"
+                                                           Text="{Binding Title}" 
+                                                           FontSize="11" Width="120" 
+                                                           TextAlignment="Center"
+                                                           Canvas.Left="-49" Canvas.Top="-35"
+                                                           Foreground="#2c3e50"
+                                                           FontWeight="Medium"
+                                                           TextWrapping="Wrap"/>
+                                            </Canvas>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Panel>
+
+                        <Border Grid.Row="2" Background="White" Padding="15" BorderBrush="#CCCCCC" BorderThickness="0,1,0,0">
+                            <Grid RowDefinitions="Auto, *">
+                                <TextBlock Grid.Row="0" 
+                                           Text="{Binding SelectedMilestone.Title, FallbackValue='Выберите веху на карте'}" 
+                                           FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                                <ScrollViewer Grid.Row="1">
+                                    <ItemsControl ItemsSource="{Binding CurrentTasks}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:TaskViewModel">
+                                                <CheckBox IsChecked="{Binding IsCompleted}" 
+                                                          Content="{Binding Title}" 
+                                                          Margin="0,2"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </TabItem>
+
+            <TabItem Header="Зачем я это делаю? 💡">
+                <ScrollViewer>
+                    <StackPanel Margin="20" Spacing="15">
+            
+                        <Border Background="{StaticResource CardBackgroundBrush}" 
+                                Padding="20" CornerRadius="12" 
+                                BoxShadow="0 2 8 0 #0A000000"
+                                BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0,0,0,4">
+                            <StackPanel Spacing="10">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="🚀" FontSize="24"/>
+                                    <TextBlock Text="ПОЧЕМУ ЭТО ВАЖНО" 
+                                               FontSize="14" FontWeight="Bold" 
+                                               Foreground="{StaticResource AccentColorBrush}" 
+                                               VerticalAlignment="Center" LetterSpacing="1"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Motivation}" 
+                                           TextWrapping="Wrap" FontSize="15" 
+                                           LineHeight="22" Foreground="{StaticResource PrimaryTextBrush}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#FFF5F5" 
+                                Padding="20" CornerRadius="12" 
+                                BoxShadow="0 2 8 0 #0A000000"
+                                BorderBrush="#E57373" BorderThickness="0,0,0,4">
+                            <StackPanel Spacing="10">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <TextBlock Text="⚠️" FontSize="24"/>
+                                    <TextBlock Text="ЧТО БУДЕТ, ЕСЛИ Я БРОШУ" 
+                                               FontSize="14" FontWeight="Bold" 
+                                               Foreground="#C62828" 
+                                               VerticalAlignment="Center" LetterSpacing="1"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding FailureCost}" 
+                                           TextWrapping="Wrap" FontSize="15" 
+                                           LineHeight="22" Foreground="#7B1D1D"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="{StaticResource CardBackgroundBrush}" 
+                                Padding="20" CornerRadius="12" 
+                                BoxShadow="0 2 8 0 #0A000000">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <TextBlock Grid.Column="0" Text="📅" FontSize="24" Margin="0,0,15,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="ЦЕЛЕВАЯ ДАТА ЗАВЕРШЕНИЯ" 
+                                               FontSize="12" FontWeight="SemiBold" 
+                                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                                    <TextBlock Text="{Binding TargetDateDisplay}" 
+                                               FontSize="18" FontWeight="Bold" 
+                                               Foreground="{StaticResource PrimaryTextBrush}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            
+        </TabControl>
+
+        <Border Grid.Row="0" Grid.RowSpan="2" 
+                Background="#CC000000" 
+                IsVisible="{Binding ShowWelcomePanel}"
+                ZIndex="100">
+            <Border Background="White" 
+                    CornerRadius="12" 
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    Padding="30" 
+                    MaxWidth="400">
+                <StackPanel Spacing="20">
+                    <TextBlock Text="С возвращением в Journey!" 
+                               FontSize="20" FontWeight="Bold" HorizontalAlignment="Center"/>
+            
+                    <TextBlock Text="{Binding ProgressDeltaDisplay}" 
+                               TextAlignment="Center" TextWrapping="Wrap" FontSize="16"/>
+            
+                    <Button Content="В путь! 🚀" 
+                            Command="{Binding CloseWelcomeCommand}"
+                            HorizontalAlignment="Center"
+                            Padding="20,10"
+                            Background="#2ecc71"
+                            Foreground="White"
+                            FontWeight="Bold"/>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <Border Background="#CC000000" 
+        IsVisible="{Binding IsEditing}"
+        ZIndex="110">
+            <Border Background="White" 
+                    CornerRadius="15" 
+                    Width="450"
+                    Padding="25"
+                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                    BoxShadow="0 10 30 0 #40000000">
+                <StackPanel Spacing="15">
+                    <TextBlock Text="Настройки проекта" FontSize="20" FontWeight="Bold"/>
+            
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Название проекта" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditProjectName}" Watermark="Например: My Epic Game"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Зачем я это делаю? (Мотивация)" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditMotivation}" AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Цена провала" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditFailureCost}" AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Дедлайн" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditTargetDate}" Watermark="ДД.ММ.ГГГГ"/>
+                    </StackPanel>
+
+                    <Grid ColumnDefinitions="*, *" Margin="0,10,0,0">
+                        <Button Grid.Column="0" Content="Отмена" 
+                                Command="{Binding CancelEditCommand}"
+                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Margin="0,0,5,0"/>
+                        <Button Grid.Column="1" Content="Сохранить" 
+                                Command="{Binding SaveProjectCommand}"
+                                Background="{StaticResource AccentColorBrush}" Foreground="White"
+                                HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                                Margin="5,0,0,0"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</Window>

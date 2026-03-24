@@ -1,0 +1,25 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Journey.UI.App"
+             xmlns:local="using:Journey.UI"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+
+    <Application.Resources>
+        <SolidColorBrush x:Key="MainBackgroundBrush" Color="#F3F4F6"/>
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="White"/>
+        <SolidColorBrush x:Key="AccentColorBrush" Color="#10B981"/> <SolidColorBrush x:Key="PrimaryTextBrush" Color="#1F2937"/>
+        <SolidColorBrush x:Key="SecondaryTextBrush" Color="#6B7280"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="#E5E7EB"/>
+    
+        <FontFamily x:Key="MainFont">avares://Avalonia.Themes.Fluent/Assets/Fonts#Inter,Segoe UI,Arial</FontFamily>
+    </Application.Resources>
+</Application>

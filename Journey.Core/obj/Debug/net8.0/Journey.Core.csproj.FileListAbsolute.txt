@@ -1,0 +1,11 @@
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\bin\Debug\net8.0\Journey.Core.deps.json
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\bin\Debug\net8.0\Journey.Core.dll
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\bin\Debug\net8.0\Journey.Core.pdb
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.AssemblyInfoInputs.cache
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.AssemblyInfo.cs
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.csproj.CoreCompileInputs.cache
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.dll
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\refint\Journey.Core.dll
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\Journey.Core.pdb
+C:\Users\MisterClass\Documents\Projects\Journey\Journey.Core\obj\Debug\net8.0\ref\Journey.Core.dll
