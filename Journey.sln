@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37027.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.Core", "Journey.Core\Journey.Core.csproj", "{D7ACD242-DBFC-4F4B-9106-12CBBE05CE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Journey.UI", "Journey.UI\Journey.UI.csproj", "{FCD58096-2F0C-4D7F-8854-E4EB50A446AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7ACD242-DBFC-4F4B-9106-12CBBE05CE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7ACD242-DBFC-4F4B-9106-12CBBE05CE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7ACD242-DBFC-4F4B-9106-12CBBE05CE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7ACD242-DBFC-4F4B-9106-12CBBE05CE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD58096-2F0C-4D7F-8854-E4EB50A446AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD58096-2F0C-4D7F-8854-E4EB50A446AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD58096-2F0C-4D7F-8854-E4EB50A446AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD58096-2F0C-4D7F-8854-E4EB50A446AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E280D660-A1AD-40A1-BD1C-B10B824B3D11}
+	EndGlobalSection
+EndGlobal
