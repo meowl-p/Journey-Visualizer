@@ -9,32 +9,32 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
         x:Class="Journey.UI.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Background="{StaticResource MainBackgroundBrush}"
-        FontFamily="{StaticResource MainFont}"
+        Background="{DynamicResource MainBackgroundBrush}"
+        FontFamily="{DynamicResource MainFont}"
         Icon="/Assets/avalonia-logo.ico"
         Title="Journey.UI">
 
     <Window.Styles>
         <Style Selector="CheckBox">
-            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="10,0,0,0"/>
         </Style>
 
         <Style Selector="CheckBox:checked /template/ ContentPresenter">
-            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/>
             <Setter Property="TextBlock.TextDecorations" Value="Strikethrough"/>
         </Style>
 
         <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
-            <Setter Property="Background" Value="{StaticResource AccentColorBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource AccentColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
         </Style>
 
         <Style Selector="TabItem">
             <Setter Property="Margin" Value="0,0,10,0"/>
             <Setter Property="Padding" Value="15,10"/>
-            <Setter Property="Foreground" Value="{StaticResource SecondaryTextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/>
             <Setter Property="BorderThickness" Value="0,0,0,2"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Transitions">
@@ -45,18 +45,18 @@
         </Style>
 
         <Style Selector="TabItem:pointerover">
-            <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
         </Style>
 
         <Style Selector="TabItem:selected">
-            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource AccentColorBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentColorBrush}"/>
         </Style>
     </Window.Styles>
 
     <Grid RowDefinitions="Auto, *">
         <Border Grid.Row="0" 
-                Background="{StaticResource CardBackgroundBrush}"
+                Background="{DynamicResource CardBackgroundBrush}"
                 Margin="12" 
                 Padding="20" 
                 CornerRadius="12"
@@ -65,12 +65,12 @@
                 <TextBlock Text="{Binding ProjectName}" 
                            FontSize="22" 
                            FontWeight="Bold"
-                           Foreground="{StaticResource PrimaryTextBrush}"/>
+                           Foreground="{DynamicResource PrimaryTextBrush}"/>
                 <Grid ColumnDefinitions="*, Auto">
                     <ProgressBar Grid.Column="0" 
                                  Value="{Binding CurrentProgressValue}" 
                                  Height="8" 
-                                 Foreground="{StaticResource AccentColorBrush}"
+                                 Foreground="{DynamicResource AccentColorBrush}"
                                  Background="#E5E7EB"
                                  CornerRadius="4"/>
                     <TextBlock Grid.Column="1" 
@@ -78,7 +78,7 @@
                                Margin="12,0,0,0"
                                VerticalAlignment="Center"
                                FontSize="13"
-                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                               Foreground="{DynamicResource SecondaryTextBrush}"/>
                 </Grid>
             </StackPanel>
         </Border>
@@ -92,7 +92,7 @@
                 </Style>
             </TabControl.Styles>
             <TabItem Header="Карта 🗺️">
-               <Border Background="{StaticResource CardBackgroundBrush}" 
+               <Border Background="{DynamicResource CardBackgroundBrush}" 
                         CornerRadius="12" 
                         BoxShadow="0 4 12 0 #0A000000"
                         ClipToBounds="True">
@@ -242,22 +242,37 @@
             <TabItem Header="Зачем я это делаю? 💡">
                 <ScrollViewer>
                     <StackPanel Margin="20" Spacing="15">
-            
-                        <Border Background="{StaticResource CardBackgroundBrush}" 
+                        <Border Background="{DynamicResource CardBackgroundBrush}" 
+                                            Padding="20" CornerRadius="12" 
+                                            BoxShadow="0 2 8 0 #0A000000">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <TextBlock Grid.Column="0" Text="📅" FontSize="24" Margin="0,0,15,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                    <TextBlock Text="МОЯ ЦЕЛЬ" 
+                                               FontSize="14"
+                                               FontWeight="Bold" 
+                                               Foreground="{StaticResource AccentColorBrush}"/>
+                                    <TextBlock Text="{Binding ProjectGoal}" 
+                                                FontSize="18" FontStyle="Italic" TextWrapping="Wrap"
+                                                Foreground="{DynamicResource PrimaryTextBrush}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Border Background="{DynamicResource CardBackgroundBrush}" 
                                 Padding="20" CornerRadius="12" 
                                 BoxShadow="0 2 8 0 #0A000000"
-                                BorderBrush="{StaticResource AccentColorBrush}" BorderThickness="0,0,0,4">
+                                BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="0,0,0,4">
                             <StackPanel Spacing="10">
                                 <StackPanel Orientation="Horizontal" Spacing="10">
                                     <TextBlock Text="🚀" FontSize="24"/>
                                     <TextBlock Text="ПОЧЕМУ ЭТО ВАЖНО" 
                                                FontSize="14" FontWeight="Bold" 
-                                               Foreground="{StaticResource AccentColorBrush}" 
+                                               Foreground="{DynamicResource AccentColorBrush}" 
                                                VerticalAlignment="Center" LetterSpacing="1"/>
                                 </StackPanel>
                                 <TextBlock Text="{Binding Motivation}" 
                                            TextWrapping="Wrap" FontSize="15" 
-                                           LineHeight="22" Foreground="{StaticResource PrimaryTextBrush}"/>
+                                           LineHeight="22" Foreground="{DynamicResource PrimaryTextBrush}"/>
                             </StackPanel>
                         </Border>
 
@@ -279,7 +294,7 @@
                             </StackPanel>
                         </Border>
 
-                        <Border Background="{StaticResource CardBackgroundBrush}" 
+                        <Border Background="{DynamicResource CardBackgroundBrush}" 
                                 Padding="20" CornerRadius="12" 
                                 BoxShadow="0 2 8 0 #0A000000">
                             <Grid ColumnDefinitions="Auto, *">
@@ -287,10 +302,10 @@
                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                     <TextBlock Text="ЦЕЛЕВАЯ ДАТА ЗАВЕРШЕНИЯ" 
                                                FontSize="12" FontWeight="SemiBold" 
-                                               Foreground="{StaticResource SecondaryTextBrush}"/>
+                                               Foreground="{DynamicResource SecondaryTextBrush}"/>
                                     <TextBlock Text="{Binding TargetDateDisplay}" 
                                                FontSize="18" FontWeight="Bold" 
-                                               Foreground="{StaticResource PrimaryTextBrush}"/>
+                                               Foreground="{DynamicResource PrimaryTextBrush}"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -304,6 +319,7 @@
         <Border Grid.Row="0" Grid.RowSpan="2" 
                 Background="#CC000000" 
                 IsVisible="{Binding ShowWelcomePanel}"
+                IsHitTestVisible="{Binding ShowWelcomePanel}"
                 ZIndex="100">
             <Border Background="White" 
                     CornerRadius="12" 
@@ -330,9 +346,11 @@
         </Border>
 
         <Border Background="#CC000000" 
+        Grid.Row="0" Grid.RowSpan="2"
         IsVisible="{Binding IsEditing}"
+        IsHitTestVisible="{Binding IsEditing}"
         ZIndex="110">
-            <Border Background="White" 
+            <Border Background="{DynamicResource CardBackgroundBrush}" 
                     CornerRadius="15" 
                     Width="450"
                     Padding="25"
@@ -342,22 +360,27 @@
                     <TextBlock Text="Настройки проекта" FontSize="20" FontWeight="Bold"/>
             
                     <StackPanel Spacing="5">
-                        <TextBlock Text="Название проекта" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
-                        <TextBox Text="{Binding EditProjectName}" Watermark="Например: My Epic Game"/>
+                        <TextBlock Text="Название проекта" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditProjectName, Mode=TwoWay}" Watermark="Например: My Epic Game"/>
                     </StackPanel>
 
                     <StackPanel Spacing="5">
-                        <TextBlock Text="Зачем я это делаю? (Мотивация)" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBlock Text="Конкретная цель" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBox Text="{Binding EditGoal}" Watermark="Например: Опубликовать игру в Steam"/>
+                    </StackPanel>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock Text="Зачем я это делаю? (Мотивация)" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
                         <TextBox Text="{Binding EditMotivation}" AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
                     </StackPanel>
 
                     <StackPanel Spacing="5">
-                        <TextBlock Text="Цена провала" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBlock Text="Цена провала" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
                         <TextBox Text="{Binding EditFailureCost}" AcceptsReturn="True" Height="80" TextWrapping="Wrap"/>
                     </StackPanel>
 
                     <StackPanel Spacing="5">
-                        <TextBlock Text="Дедлайн" FontSize="12" Foreground="{StaticResource SecondaryTextBrush}"/>
+                        <TextBlock Text="Дедлайн" FontSize="12" Foreground="{DynamicResource SecondaryTextBrush}"/>
                         <TextBox Text="{Binding EditTargetDate}" Watermark="ДД.ММ.ГГГГ"/>
                     </StackPanel>
 
@@ -368,7 +391,7 @@
                                 Margin="0,0,5,0"/>
                         <Button Grid.Column="1" Content="Сохранить" 
                                 Command="{Binding SaveProjectCommand}"
-                                Background="{StaticResource AccentColorBrush}" Foreground="White"
+                                Background="{DynamicResource AccentColorBrush}" Foreground="White"
                                 HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                                 Margin="5,0,0,0"/>
                     </Grid>

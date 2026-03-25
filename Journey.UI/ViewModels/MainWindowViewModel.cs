@@ -17,7 +17,7 @@ namespace Journey.UI.ViewModels
     {
         private Project _currentProject;
         public string ProjectName => _currentProject.Name;
-
+        public string ProjectGoal => _currentProject.Goal;
         public string Motivation => _currentProject.Motivation;
         public string FailureCost => _currentProject.FailureCost;
         public string TargetDateDisplay => _currentProject.TargetDate.ToShortDateString();
@@ -101,6 +101,8 @@ namespace Journey.UI.ViewModels
             {
                 Name = "Journey Visualizer MVP",
                 TargetDate = new DateTime(2026, 03, 30),
+                Goal = @"Разработать MVP визуализатора прогресса достижения цели и протестировать гипотезу, 
+что прогресс и напоминание зачем я это делаю поддерживает во мне интерес продолжать идти вперед.",
 
                 // Мощная и емкая мотивация
                 Motivation = @"• АКТИВ СВОБОДЫ: Я строю портфолио, которое позволит мне диктовать условия рынку, а не подстраиваться под него.
@@ -389,6 +391,13 @@ namespace Journey.UI.ViewModels
             set => this.RaiseAndSetIfChanged(ref _editTargetDate, value);
         }
 
+        private string _editGoal;
+        public string EditGoal
+        {
+            get => _editGoal;
+            set => RaiseAndSetIfChanged(ref _editGoal, value);
+        }
+
         public ICommand OpenEditCommand { get; }
         public ICommand CancelEditCommand { get; }
         public ICommand SaveProjectCommand { get; }
@@ -397,10 +406,12 @@ namespace Journey.UI.ViewModels
         {
             // Копируем текущие данные в буферы перед открытием окна
             EditProjectName = ProjectName;
+            EditGoal = ProjectGoal;
             EditMotivation = Motivation;
             EditFailureCost = FailureCost;
-            EditTargetDate = TargetDateDisplay; // Или отдельное поле даты, если оно есть
+            EditTargetDate = TargetDateDisplay; // Или отдельное поле даты, если оно 
 
+            ShowWelcomePanel = false;
             IsEditing = true;
         }
 
@@ -416,6 +427,7 @@ namespace Journey.UI.ViewModels
         {
             // 1. Обновляем данные в самой модели
             _currentProject.Name = EditProjectName;
+            _currentProject.Goal = EditGoal;
             _currentProject.Motivation = EditMotivation;
             _currentProject.FailureCost = EditFailureCost;
 
@@ -427,6 +439,7 @@ namespace Journey.UI.ViewModels
             // 2. Уведомляем интерфейс, что свойства-обертки изменились
             // Это важно, так как у них нет своих setter-ов
             OnPropertyChanged(nameof(ProjectName));
+            OnPropertyChanged(nameof(ProjectGoal));
             OnPropertyChanged(nameof(Motivation));
             OnPropertyChanged(nameof(FailureCost));
             OnPropertyChanged(nameof(TargetDateDisplay));
