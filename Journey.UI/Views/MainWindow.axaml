@@ -79,7 +79,6 @@
                                VerticalAlignment="Center"
                                FontSize="13"
                                Foreground="{StaticResource SecondaryTextBrush}"/>
-                     
                 </Grid>
             </StackPanel>
         </Border>
@@ -107,6 +106,10 @@
                                 Command="{Binding ResetCommand}"
                                 Background="#FFE0E0" 
                                 Margin="5,0"/>
+                            <Button 
+                                Content="⚙️ Project" 
+                                Command="{Binding OpenEditCommand}"
+                                Background="Transparent" BorderThickness="0"/>
                             </StackPanel>
 
                         <Panel Grid.Row="1" Background="#F8F9FA">
