@@ -58,7 +58,14 @@ dotnet run
 ```
 
 ## 🖼 Скриншоты из приложения
+### Главный экран
 ![Главный экран приложения](Journey.UI/Assets/Screenshots/journey_main.png)
+### Экран с мотивацией
+![Экран мотивации](Journey.UI/Assets/Screenshots/journey_motivation.png)
+### Попап прогресса по проекту
+![Попап с прогрессом](Journey.UI/Assets/Screenshots/journey_popup.png)
+### Окно редактирования
+![Окно редактирования](Journey.UI/Assets/Screenshots/journey_edit.png)
 
 ## 📊 План развития на ближайшее время
 - [x] Система сохранения/загрузки прогресса.
